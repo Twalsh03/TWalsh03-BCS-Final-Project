@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 //TEST NETWORK IP HARD CODED
+//TEST CONDUCTED ON OSX 10.13.6
 public class gatewayTest {
      localHost testLocalHost = new localHost();
      gateway testGateway = new gateway();
