@@ -1,6 +1,4 @@
 import org.testng.annotations.Test;
-import utils.gateway;
-import utils.localHost;
 
 
 import static org.junit.jupiter.api.Assertions.*;
