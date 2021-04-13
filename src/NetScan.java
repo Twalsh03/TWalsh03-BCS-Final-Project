@@ -1,19 +1,25 @@
 import java.util.List;
-import
+import java.io.*;
+import java.net.*;
+
 /***
  *
  *
  */
 
 public class NetScan implements DeviceScan{
-    List<>foundDevices;
+    List<Device>foundDevices;
 
-    public NetScan(){
 
-    }
+    public NetScan(){ }
     @Override
     public void scan() {
 
 
     }
+
+    public List<Device> getFoundDevices(){
+        return foundDevices;
+    }
+
 }

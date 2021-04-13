@@ -2,11 +2,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 
-public class localHost {
+public class LocalHost {
 
     private String localHost;
 
-    public localHost() {
+    public LocalHost() {
 
     }
 

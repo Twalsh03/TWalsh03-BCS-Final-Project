@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 //TEST CONDUCTED ON OSX 10.13.6
 public class utilsTest {
 
-    localHost testLocalHost = new localHost();
+    LocalHost testLocalHost = new LocalHost();
 
     @Test
     public void setLocalHost() {
@@ -19,7 +19,7 @@ public class utilsTest {
 
     }
 
-    gateway testGateway = new gateway();
+    Gateway testGateway = new Gateway();
 
     @Test
     public void setTestGateway() {

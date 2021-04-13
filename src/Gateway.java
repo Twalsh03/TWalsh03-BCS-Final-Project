@@ -1,14 +1,14 @@
-public class gateway extends localHost {
+public class Gateway extends LocalHost {
 
     private String gateway;
-    public gateway(){
+    public Gateway(){
 
     }
     //gets the local IP and sets the last subnet to .1
     //Will be used as the default starting point to of scans
     public void setGateway(){
 
-        localHost localHost =new localHost();
+        LocalHost localHost =new LocalHost();
         localHost.setLocalHost();
         String localHostIP = localHost.getLocalHost();
 
