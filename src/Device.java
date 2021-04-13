@@ -9,24 +9,10 @@ public class Device {
     String hostName;
     List<Integer>ports;
 
-    public Device(){
-
-    }
-
-    public void setIp(InetAddress ip) {
-        this.ip = ip;
-    }
-
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
-    public void setPorts(List<Integer> ports) {
-        this.ports = ports;
+    public Device(InetAddress ip, String macAddress, String hostName){
+         this.ip = ip;
+         this.macAddress = macAddress;
+         this.hostName = hostName;
     }
 
     public InetAddress getIp() {
@@ -43,6 +29,16 @@ public class Device {
 
     public List<Integer> getPorts() {
         return ports;
+    }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "ip=" + ip +
+                ", macAddress='" + macAddress + '\'' +
+                ", hostName='" + hostName + '\'' +
+                ", ports=" + ports +
+                '}';
     }
 }
 

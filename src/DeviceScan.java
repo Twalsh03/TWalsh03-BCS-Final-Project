@@ -1,6 +1,9 @@
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 public interface DeviceScan {
 
-     public abstract void scan();
+     public abstract void scan() throws IOException;
 
 
      @Override
