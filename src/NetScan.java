@@ -12,7 +12,7 @@ import java.net.*;
 public class NetScan implements DeviceScan{
 
     private ArrayList<String> foundDevices = new ArrayList<>();
-    private int SCAN_LIMIT  = 255;
+    private final int SCAN_LIMIT  = 255;
     private Gateway gateway = new Gateway();
     private String subnetGateway;
     private String subnet;
@@ -40,7 +40,7 @@ public class NetScan implements DeviceScan{
             InetAddress currentIP = InetAddress.getByName(subnet+ i);
             if(currentIP.isReachable(500)){
                foundDevices.add(currentIP.toString());
-                System.out.println(currentIP);
+                System.out.println(currentIP.getHostName());
            }
         }
 

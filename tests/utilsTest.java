@@ -9,8 +9,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-//TEST NETWORK IP HARD CODED FOR SIMPLICITY
-//TEST CONDUCTED ON OSX 10.13.6
+//TEST NETWORK IP HARD CODED FOR TESTING
+//TESTS CONDUCTED ON WITHIN VIRTUAL BOX VM LAB
 public class utilsTest {
 
     LocalHost testLocalHost = new LocalHost();
