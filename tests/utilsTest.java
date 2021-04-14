@@ -1,4 +1,8 @@
 import com.google.common.net.InetAddresses;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Order;
 import org.testng.annotations.Test;
 
 
@@ -14,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class utilsTest {
 
     LocalHost testLocalHost = new LocalHost();
+    NetScan testScan;
 
     @Test
     public void setLocalHost() {
@@ -34,16 +39,32 @@ public class utilsTest {
         assertEquals(expected, actual, "gateway Address not as expected");
     }
 
-    NetScan testScan = new NetScan();
+
+    //this test will scan the network and test the found details of the first found device.
+    //In this case it will be my router.
     @Test
-    public void netScanTest(){
+    public void foundDeviceTest(){
+        //Test the properties of first found device
+        Device testDevice = new Device("192.168.8.1","MAC-STUB","homerouter.cpe");
+        Device actual = testScan.getFoundDevice(0);
+        String expected = testDevice.toString();
+        assertEquals(expected, actual, "The objects are not equal");
+    }
+
+    @Test
+   public void networkScanTest() throws IOException {
+        //Scan network
+        testScan = new NetScan();
+        testScan.scan();
         try {
             testScan.scan();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<String> actual = testScan.getFoundDevices();
-        String expected = "192.168.8.1";
-        assertEquals(expected, actual, "gateway Address not as expected");
+
+        boolean expected = false;
+        boolean actual = testScan.getFoundDevices().isEmpty();
+        assertEquals(expected, actual);
     }
+
 }

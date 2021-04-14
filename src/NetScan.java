@@ -11,11 +11,11 @@ import java.net.*;
 
 public class NetScan implements DeviceScan{
 
-    private ArrayList<String> foundDevices = new ArrayList<>();
+    private ArrayList<Device> foundDevices = new ArrayList<>();
     private final int SCAN_LIMIT  = 255;
     private Gateway gateway = new Gateway();
-    private String subnetGateway;
-    private String subnet;
+    private String subnetGateway, subnet, hostName, macAddress;
+    private InetAddress currentIP;
 
     public NetScan(){
         gateway.setGateway();
@@ -32,22 +32,39 @@ public class NetScan implements DeviceScan{
         subnet = subnetGateway.substring(0,subIndex)+".";
 
         //device constructor
-        Constructor<Device> deviceConstructor;
+        DeviceFactory deviceFactory = new DeviceFactory();
 
 
         for(int i = 1; i<SCAN_LIMIT; i++){
 
-            InetAddress currentIP = InetAddress.getByName(subnet+ i);
-            if(currentIP.isReachable(500)){
-               foundDevices.add(currentIP.toString());
-                System.out.println(currentIP.getHostName());
+            currentIP = InetAddress.getByName(subnet+ i);
+            if(currentIP.isReachable(30)){
+                Device  currentDevice = null;
+
+                String currentIPString = currentIP.toString();
+                currentIPString = currentIPString.substring(currentIPString.indexOf("/"+1)).
+                        replace("/", "");
+
+
+                try {
+                    currentDevice = deviceFactory.getInstance(currentIPString, "MAC-STUB", currentIP.getHostName());
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+
+                foundDevices.add(currentDevice);
+
            }
         }
 
     }
 
-    public List<String> getFoundDevices(){
+    public List<Device> getFoundDevices(){
         return foundDevices;
+    }
+
+    public Device getFoundDevice( int i){
+        return foundDevices.get(i);
     }
 
     public String getSubnetGateway(){

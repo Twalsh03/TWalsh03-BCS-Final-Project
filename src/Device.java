@@ -4,18 +4,18 @@ import java.util.List;
 
 
 public class Device {
-    InetAddress ip;
+    String ip;
     String macAddress;
     String hostName;
     List<Integer>ports;
 
-    public Device(InetAddress ip, String macAddress, String hostName){
+    public Device(String ip, String macAddress, String hostName){
          this.ip = ip;
          this.macAddress = macAddress;
          this.hostName = hostName;
     }
 
-    public InetAddress getIp() {
+    public String getIp() {
         return ip;
     }
 

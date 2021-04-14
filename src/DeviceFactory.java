@@ -8,15 +8,15 @@ public class DeviceFactory {
 
     }
 
-    public Device getInstance() throws NoSuchMethodException {
+    public Device getInstance(String deviceIP, String macAddress, String hostname) throws NoSuchMethodException {
 
 
 
-        Constructor<?> deviceConstructor = Device.class.getConstructor(InetAddress.class, String.class, String.class);
+        Constructor<?> deviceConstructor = Device.class.getConstructor(String.class, String.class, String.class);
 
 
         try {
-            return (Device) deviceConstructor.newInstance();
+            return (Device) deviceConstructor.newInstance(deviceIP, macAddress, hostname);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

@@ -19,8 +19,7 @@ public class LocalHost {
             e.printStackTrace();
         }
         localHost = localHost.substring(localHost.indexOf("/"+1)).
-                replace("/", "").
-                trim();
+                replace("/", "");
     }
 
     public String getLocalHost(){
