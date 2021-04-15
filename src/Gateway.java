@@ -12,8 +12,7 @@ public class Gateway extends LocalHost {
         localHost.setLocalHost();
         String localHostIP = localHost.getLocalHost();
 
-        int subIndex = localHostIP.lastIndexOf(".");
-        gateway = localHostIP.substring(0,subIndex) + ".1";
+        gateway = localHostIP.substring(0,localHostIP.lastIndexOf(".")) + ".1";
 
     }
     public String getGateway() {

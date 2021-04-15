@@ -1,5 +1,4 @@
-public class PortScan implements DeviceScan{
-    @Override
+public class PortScan{
     public void scan() {
 
     }

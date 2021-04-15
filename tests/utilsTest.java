@@ -1,27 +1,24 @@
-import com.google.common.net.InetAddresses;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.testng.annotations.Test;
-
-
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.List;
+import java.net.UnknownHostException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 //TEST NETWORK IP HARD CODED FOR TESTING
 //TESTS CONDUCTED ON WITHIN VIRTUAL BOX VM LAB
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class utilsTest {
 
     LocalHost testLocalHost = new LocalHost();
     NetScan testScan;
 
     @Test
-    public void setLocalHost() {
+    public void A_setLocalHost() {
         testLocalHost.setLocalHost();
         String actual = testLocalHost.getLocalHost();
         String expected = "192.168.8.105";
@@ -32,22 +29,17 @@ public class utilsTest {
     Gateway testGateway = new Gateway();
 
     @Test
-    public void setTestGateway() {
+    public void B_setTestGateway() {
         testGateway.setGateway();
         String actual = testGateway.getGateway();
         String expected = "192.168.8.1";
         assertEquals(expected, actual, "gateway Address not as expected");
     }
 
-
-    //this test will scan the network and test the found details of the first found device.
-    //In this case it will be my router.
-
     @Test
-   public void networkScanTest() throws IOException, NoSuchMethodException {
+   public void C_networkScanTest() throws IOException, NoSuchMethodException {
         //Scan network
         testScan = new NetScan();
-        testScan.scan();
         try {
             testScan.scan();
         } catch (IOException e) {
@@ -58,5 +50,22 @@ public class utilsTest {
         boolean actual = testScan.getFoundDevices().isEmpty();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void D_DeviceCreationTest(){
+
+        Device routerTEST = null;
+        try {
+            routerTEST = new Device(InetAddress.getByName("192.168.8.1"), "MAC-STUB", "homerouter.cpe");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        Device actual = testScan.getFoundDevice(0);
+        Device expected = routerTEST;
+        assertEquals(actual, expected);
+    }
+
+
 
 }

@@ -9,22 +9,19 @@ import java.net.*;
  *
  */
 
-public class NetScan implements DeviceScan{
+public class NetScan{
 
-    private ArrayList<Device> foundDevices = new ArrayList<>();
-
-    private final Gateway gateway = new Gateway();
-    private String subnetGateway;
-
+    private static final Gateway gateway = new Gateway();
+    private static String subnetGateway;
+    private static ArrayList<Device> foundDevices = new ArrayList<>();
 
     public NetScan(){
         gateway.setGateway();
 
     }
 
+    public static void scan() throws IOException, NoSuchMethodException {
 
-    @Override
-    public void scan() throws IOException, NoSuchMethodException {
         String macAddress, hostname;
         final String subnet;
         final int SCAN_LIMIT  = 255;
@@ -44,11 +41,19 @@ public class NetScan implements DeviceScan{
         for(int i = 1; i<SCAN_LIMIT; i++){
 
             currentIP = InetAddress.getByName(subnet+ i);
+
             if(currentIP.isReachable(30)){
+
+                //convert Inet Address to String to manipulate
                 hostname = currentIP.getHostName();
+                //get just the hostname from the IP address gained
+                String hostnameString = hostname.toString().substring(0, hostname.indexOf("/")+1);
+
+
                 Device newDevice = deviceFactory.getInstance(currentIP, "MAC-STUB", hostname);
+
                 foundDevices.add(newDevice);
-                System.out.println(currentIP);
+                System.out.println(newDevice);
            }
         }
 
