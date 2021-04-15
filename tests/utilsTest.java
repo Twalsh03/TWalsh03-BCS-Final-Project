@@ -42,14 +42,6 @@ public class utilsTest {
 
     //this test will scan the network and test the found details of the first found device.
     //In this case it will be my router.
-    @Test
-    public void foundDeviceTest(){
-        //Test the properties of first found device
-        Device testDevice = new Device("192.168.8.1","MAC-STUB","homerouter.cpe");
-        Device actual = testScan.getFoundDevice(0);
-        String expected = testDevice.toString();
-        assertEquals(expected, actual, "The objects are not equal");
-    }
 
     @Test
    public void networkScanTest() throws IOException, NoSuchMethodException {

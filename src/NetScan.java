@@ -1,4 +1,4 @@
-import java.lang.reflect.Constructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
@@ -12,10 +12,10 @@ import java.net.*;
 public class NetScan implements DeviceScan{
 
     private ArrayList<Device> foundDevices = new ArrayList<>();
-    private int SCAN_LIMIT  = 255;
-    private Gateway gateway = new Gateway();
-    private String subnetGateway, subnet, macAddress, hostname;
-    private InetAddress currentIP;
+
+    private final Gateway gateway = new Gateway();
+    private String subnetGateway;
+
 
     public NetScan(){
         gateway.setGateway();
@@ -25,6 +25,12 @@ public class NetScan implements DeviceScan{
 
     @Override
     public void scan() throws IOException, NoSuchMethodException {
+        String macAddress, hostname;
+        final String subnet;
+        final int SCAN_LIMIT  = 255;
+        InetAddress currentIP;
+
+
         //get network gateway to start scan
         subnetGateway = gateway.getGateway();
         //get subnet to start scan on
