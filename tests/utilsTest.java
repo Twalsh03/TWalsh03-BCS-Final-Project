@@ -52,7 +52,7 @@ public class utilsTest {
     }
 
     @Test
-   public void networkScanTest() throws IOException {
+   public void networkScanTest() throws IOException, NoSuchMethodException {
         //Scan network
         testScan = new NetScan();
         testScan.scan();

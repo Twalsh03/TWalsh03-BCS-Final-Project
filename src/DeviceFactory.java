@@ -6,13 +6,14 @@ public class DeviceFactory {
 
     public DeviceFactory(){
 
+
     }
 
-    public Device getInstance(String deviceIP, String macAddress, String hostname) throws NoSuchMethodException {
+    public Device getInstance(InetAddress deviceIP, String macAddress, String hostname) throws NoSuchMethodException {
 
 
 
-        Constructor<?> deviceConstructor = Device.class.getConstructor(String.class, String.class, String.class);
+        Constructor<?> deviceConstructor = Device.class.getConstructor(InetAddress.class, String.class, String.class);
 
 
         try {

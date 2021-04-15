@@ -12,9 +12,9 @@ import java.net.*;
 public class NetScan implements DeviceScan{
 
     private ArrayList<Device> foundDevices = new ArrayList<>();
-    private final int SCAN_LIMIT  = 255;
+    private int SCAN_LIMIT  = 255;
     private Gateway gateway = new Gateway();
-    private String subnetGateway, subnet, hostName, macAddress;
+    private String subnetGateway, subnet, macAddress, hostname;
     private InetAddress currentIP;
 
     public NetScan(){
@@ -24,14 +24,14 @@ public class NetScan implements DeviceScan{
 
 
     @Override
-    public void scan() throws IOException {
+    public void scan() throws IOException, NoSuchMethodException {
         //get network gateway to start scan
         subnetGateway = gateway.getGateway();
         //get subnet to start scan on
         int subIndex = subnetGateway.lastIndexOf(".");
         subnet = subnetGateway.substring(0,subIndex)+".";
 
-        //device constructor
+        //device factory
         DeviceFactory deviceFactory = new DeviceFactory();
 
 
@@ -39,31 +39,21 @@ public class NetScan implements DeviceScan{
 
             currentIP = InetAddress.getByName(subnet+ i);
             if(currentIP.isReachable(30)){
-                Device  currentDevice = null;
-
-                String currentIPString = currentIP.toString();
-                currentIPString = currentIPString.substring(currentIPString.indexOf("/"+1)).
-                        replace("/", "");
-
-
-                try {
-                    currentDevice = deviceFactory.getInstance(currentIPString, "MAC-STUB", currentIP.getHostName());
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
-
-                foundDevices.add(currentDevice);
-
+                hostname = currentIP.getHostName();
+                Device newDevice = deviceFactory.getInstance(currentIP, "MAC-STUB", hostname);
+                foundDevices.add(newDevice);
+                System.out.println(currentIP);
            }
         }
 
     }
 
+
     public List<Device> getFoundDevices(){
         return foundDevices;
     }
 
-    public Device getFoundDevice( int i){
+    public Device getFoundDevice(int i){
         return foundDevices.get(i);
     }
 

@@ -3,7 +3,7 @@ import java.net.UnknownHostException;
 
 public interface DeviceScan {
 
-     public abstract void scan() throws IOException;
+     public abstract void scan() throws IOException, NoSuchMethodException;
 
 
      @Override
