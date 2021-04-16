@@ -1,3 +1,5 @@
+package device;
+
 import java.net.InetAddress;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class Device {
 
     @Override
     public String toString() {
-        return "Device{" +
+        return "device.Device{" +
                 "ip=" + ip +
                 ", macAddress='" + macAddress + '\'' +
                 ", hostName='" + hostName + '\'' +

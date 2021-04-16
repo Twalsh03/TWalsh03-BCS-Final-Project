@@ -1,6 +1,8 @@
+import device.Device;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.testng.annotations.Test;
+import scanTools.NetScan;
 import utils.Gateway;
 import utils.LocalHost;
 
