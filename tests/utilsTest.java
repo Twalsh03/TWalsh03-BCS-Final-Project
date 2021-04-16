@@ -41,7 +41,11 @@ public class utilsTest {
         //Scan network
         testScan = new NetScan();
         try {
-            testScan.scan();
+            try {
+                testScan.scan();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
