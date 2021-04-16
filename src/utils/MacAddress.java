@@ -11,11 +11,13 @@ public class MacAddress {
     public MacAddress(){
 
     }
-    public static String getMacAddrHost(String host) throws IOException, InterruptedException {
+    public static String getMacAddrHost(String host) throws IOException {
         //
-        boolean ok = ping3(host);
+        boolean win = isWindows();
+        boolean osx = isOSX();
+
         //
-        if (ok) {
+        if (win) {
             InetAddress address = InetAddress.getByName(host);
             String ip = address.getHostAddress();
             return run_program_with_catching_output("arp -a " + ip);
@@ -25,18 +27,18 @@ public class MacAddress {
         //
     }
 
-    //determine if device is windows
-    //needs windows machine in order to get MAC address
-    public static boolean ping3(String host) throws IOException, InterruptedException {
-        boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
-        ProcessBuilder processBuilder = new ProcessBuilder("ping", isWindows ? "-n" : "-c", "1", host);
-        Process proc = processBuilder.start();
-
-        int returnVal = proc.waitFor();
-        return returnVal == 0;
+    public static boolean isWindows() {
+        //get the system OS
+        return System.getProperty("os.name").toLowerCase().contains("win");
     }
 
+    public static boolean isOSX() {
+        //get the system OS
+        return System.getProperty("os.name").toLowerCase().contains("mac");
+    }
+
+    //get the arp cache command against the IP given.
     public static String run_program_with_catching_output(String param) throws IOException {
         Process p = Runtime.getRuntime().exec(param);
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -46,7 +48,7 @@ public class MacAddress {
                 // keep only the process name
                 line = line.substring(1);
                 String mac = extractMacAddr(line);
-                if (mac.isEmpty() == false) {
+                if (!mac.isEmpty()) {
                     return mac;
                 }
             }
@@ -55,6 +57,7 @@ public class MacAddress {
         return null;
     }
 
+    //as the MAC address is always 17 chars long, find it, trim whitespace, convert all upper case
     public static String extractMacAddr(String str) {
         String[] arr = str.split("   ");
         for (String string : arr) {
