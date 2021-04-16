@@ -1,3 +1,5 @@
+package utils;
+
 public class Gateway extends LocalHost {
 
     private String gateway;

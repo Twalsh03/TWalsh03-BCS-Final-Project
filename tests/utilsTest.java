@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.testng.annotations.Test;
+import utils.Gateway;
+import utils.LocalHost;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 //TEST NETWORK IP HARD CODED FOR TESTING
-//TESTS CONDUCTED ON WITHIN VIRTUAL BOX VM LAB
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class utilsTest {
 
@@ -23,7 +25,6 @@ public class utilsTest {
         String actual = testLocalHost.getLocalHost();
         String expected = "192.168.8.105";
         assertEquals(expected, actual, "Local IP Address not as expected");
-
     }
 
     Gateway testGateway = new Gateway();
