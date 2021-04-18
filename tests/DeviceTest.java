@@ -14,11 +14,7 @@ public class DeviceTest {
     @Test
     public void C_DeviceCreationTest(){
 
-        try {
-                testScan.scan();
-            } catch (InterruptedException | IOException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+        testScan.scan();
 
         Device routerTEST = null;
         try {

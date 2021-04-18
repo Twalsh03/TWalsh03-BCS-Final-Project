@@ -29,7 +29,7 @@ public class NetScan{
 
     }
 
-    /***
+    /**
      * This method will scan the local network for reachable devices.
      * In order to crete the device objects of found devices during runtime, a DeviceFactory
      * is used. When a device is reachable, get the MAC Address of the device(using HOST's cached Arp Table),
@@ -37,9 +37,6 @@ public class NetScan{
      *
      *
      * SCAN_LIMIT - set to 255 as no device can have a higher IP.
-     * @throws IOException
-     * @throws NoSuchMethodException
-     * @throws InterruptedException
      */
     public void scan() {
         final String subnet;
@@ -77,7 +74,7 @@ public class NetScan{
                     foundDevices.add(newDevice);
                     System.out.println(newDevice);
                }
-            } catch (IOException| NoSuchMethodException e) {
+            } catch (IOException|NullPointerException e) {
                 e.printStackTrace();
             }
         }
@@ -95,7 +92,7 @@ public class NetScan{
     }
 
     /***
-     *
+     * When called, will return the device object of a given index from foundDevices List.
      *
      * @param i - index of device to return
      * @return Device within foundDevice List with given index.

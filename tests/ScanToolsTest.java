@@ -10,18 +10,10 @@ public class ScanToolsTest {
     NetScan testScan = new NetScan();
 
     @Test
-    public void C_networkScanTest() throws IOException, NoSuchMethodException {
+    public void C_networkScanTest() {
         //Scan network
         testScan = new NetScan();
-        try {
-            try {
-                testScan.scan();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        testScan.scan();
 
         boolean expected = false;
         boolean actual = testScan.getFoundDevices().isEmpty();
