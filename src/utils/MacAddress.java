@@ -3,8 +3,6 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.util.Scanner;
 
 
 public class MacAddress {
@@ -13,24 +11,21 @@ public class MacAddress {
     }
 
     /***
+     * Depending on HOST OS, get MAC Address via cached ARP TABLE.
      *
      *
      * @param host - IP of HOST Device - used to running local system commands from
      * @return MAC address of remote device (if found).
-     * @throws IOException
      */
-
-
-    public static String getMacAddrHost(String host) throws IOException {
+    public static String getMacAddrHost(String host) {
         //checks the HOST OS
         boolean win = isWindows();
         boolean osx = isOSX();
+        LocalHost localHost = new LocalHost();
 
-        //If HOST is Windows based
+        //If HOST is Windows OS
         if (win) {
-            InetAddress address = InetAddress.getByName(host);
-            String ip = address.getHostAddress();
-            return run_program_with_catching_output("arp -a " + ip);
+            return run_program_with_catching_output("arp -a " + localHost.getLocalHost());
         }
         //If HOST is MacOS based
         if (osx) {
@@ -71,14 +66,23 @@ public class MacAddress {
      *
      * @param param  - Command to run on Windows CMD
      * @return mac - MAC ID of IP address's NIC
-     * @throws IOException
      */
 
-    public static String run_program_with_catching_output(String param) throws IOException {
-        Process p = Runtime.getRuntime().exec(param);
+    public static String run_program_with_catching_output(String param) {
+        Process p = null;
+        try {
+            p = Runtime.getRuntime().exec(param);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line;
-        while ((line = input.readLine()) != null) {
+        String line = null;
+        while (true) {
+            try {
+                if ((line = input.readLine()) == null) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (!line.trim().equals("")) {
                 // keep only the process name
                 String mac = extractMacAddr(line.substring(1));
