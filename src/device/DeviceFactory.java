@@ -4,6 +4,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 
+/***
+ *
+ *
+ */
 public class DeviceFactory {
 
     public DeviceFactory(){
@@ -11,6 +15,15 @@ public class DeviceFactory {
 
     }
 
+    /***
+     *
+     *
+     * @param deviceIP
+     * @param macAddress
+     * @param hostname
+     * @return
+     * @throws NoSuchMethodException
+     */
     public Device getInstance(InetAddress deviceIP, String macAddress, String hostname) throws NoSuchMethodException {
 
 
@@ -20,11 +33,7 @@ public class DeviceFactory {
 
         try {
             return (Device) deviceConstructor.newInstance(deviceIP, macAddress, hostname);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (InstantiationException|IllegalAccessException| InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
