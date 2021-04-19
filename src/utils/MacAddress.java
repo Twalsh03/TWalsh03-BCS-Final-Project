@@ -60,7 +60,7 @@ public class MacAddress {
 
 
     /***
-     * If the host machine running this java program is windows based
+     * If the host machine running this java program is windows based,
      * the 'arp -a' command will be run using the runtime.exec() method.
      *
      * This will call the extractMacAddr() method to get just the MAC

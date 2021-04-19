@@ -2,6 +2,7 @@ package device;
 
 import java.net.InetAddress;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,6 @@ public class Device {
     /**
      * When a device is created, information on the device is stored.
      *
-     *
      * @param ip - IP of device
      * @param macAddress - MAC address of device
      * @param hostName - Name of the device (if found)
@@ -30,6 +30,7 @@ public class Device {
          this.ip = ip;
          this.macAddress = macAddress;
          this.hostName = hostName;
+         ports = new ArrayList<>();
     }
 
     /**
@@ -61,8 +62,15 @@ public class Device {
     }
 
     /**
+     * When a port is found to be open, add the TCP port to the ports List
      *
-     * @return
+     * @param port open port to add to ports List
+     */
+    public void setPort(int port){
+         ports.add(port);
+    }
+    /**
+     * @return  String representation of Device
      */
     @Override
     public String toString() {

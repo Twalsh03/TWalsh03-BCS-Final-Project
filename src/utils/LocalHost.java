@@ -21,7 +21,6 @@ public class LocalHost {
      * to gather the network subnet in which to start scanning.
      *
      * Trims Local Host's device name.
-     *
      */
     public  void setLocalHost() {
         try {
@@ -34,7 +33,6 @@ public class LocalHost {
 
     /***
      * Get the local host's IP
-     *
      * @return  - local host IP
      */
     public String getLocalHost(){

@@ -81,6 +81,55 @@ public class NetScan{
 
     }
 
+    /**
+     * This method will scan the local network for reachable devices.
+     * In order to crete the device objects of found devices during runtime, a DeviceFactory
+     * is used. When a device is reachable, get the MAC Address of the device(using HOST's cached Arp Table),
+     * the device name and store this with in a device object which is then held in a List of found devices.
+     *
+     * @param limit number of total devices to scan
+     */
+    public void scan(int limit) {
+        final String subnet;
+
+
+        //get subnet to start scan on
+        subnet = gateway.getSubnet();
+
+        //device factory
+        DeviceFactory deviceFactory = new DeviceFactory();
+
+
+        for(int i = 1; i<limit; i++){
+
+            InetAddress currentIP = null;
+            try {
+                currentIP = InetAddress.getByName(subnet + i);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if(currentIP.isReachable(30)){
+
+                    //convert Inet Address to String to manipulate
+                    String hostname = currentIP.getHostName();
+
+                    //use utils.MacAddress to get the MAC address of machine.
+                    //functional on Win 10
+                    String macString = MacAddress.getMacAddrHost(currentIP.getHostAddress());
+
+                    Device newDevice = deviceFactory.getInstance(currentIP, macString, hostname);
+
+                    foundDevices.add(newDevice);
+                    System.out.println(newDevice);
+                }
+            } catch (IOException|NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     /***
      *List of Device objects that are found on the network.
