@@ -3,6 +3,8 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 
 public class MacAddress {
@@ -17,15 +19,15 @@ public class MacAddress {
      * @param host - IP of HOST Device - used to running local system commands from
      * @return MAC address of remote device (if found).
      */
-    public static String getMacAddrHost(String host) {
+    public static String getMacAddrHost(String host) throws UnknownHostException {
         //checks the HOST OS
         boolean win = isWindows();
         boolean osx = isOSX();
-        LocalHost localHost = new LocalHost();
-
+        InetAddress address = InetAddress.getByName(host);
+        String ip = address.getHostAddress();
         //If HOST is Windows OS
         if (win) {
-            return run_program_with_catching_output("arp -a " + localHost.getLocalHost());
+            return run_program_with_catching_output("arp -a " + ip);
         }
         //If HOST is MacOS based
         if (osx) {
@@ -86,7 +88,6 @@ public class MacAddress {
             if (!line.trim().equals("")) {
                 // keep only the process name
                 String mac = extractMacAddr(line.substring(1));
-                System.out.println(mac);
                 if (!mac.isEmpty()) {
                     return mac;
                 }
