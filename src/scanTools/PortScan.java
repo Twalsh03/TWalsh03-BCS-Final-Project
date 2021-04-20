@@ -26,16 +26,13 @@ public class PortScan {
                 socket.connect(new InetSocketAddress(device.getIp(), port), 300);
                 socket.close();
                 device.setPort(port);
-            } catch (SocketTimeoutException e) {
-                e.printStackTrace();
+            } catch (ConnectException|SocketTimeoutException ignore){
             } catch (BindException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(device);
-
-
         }
+        System.out.println(device);
     }
 }
