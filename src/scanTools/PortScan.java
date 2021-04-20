@@ -1,6 +1,7 @@
 package scanTools;
 
 import device.Device;
+import utils.AddPortService;
 
 import java.io.IOException;
 import java.net.*;
@@ -26,12 +27,21 @@ public class PortScan {
                 socket.connect(new InetSocketAddress(device.getIp(), port), 300);
                 socket.close();
                 device.setPort(port);
-            } catch (ConnectException|SocketTimeoutException ignore){
+            } catch (ConnectException | SocketTimeoutException ignore) {
             } catch (BindException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+            //Create port service adder
+
+            //add services depending on scantype
+
+
+
+
         }
         System.out.println(device);
     }

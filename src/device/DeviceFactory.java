@@ -3,6 +3,8 @@ package device;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
+import java.util.Collection;
+import java.util.HashMap;
 
 /***
  *  This class is used to return a new device, which is created at runtime, if it is found within the network.

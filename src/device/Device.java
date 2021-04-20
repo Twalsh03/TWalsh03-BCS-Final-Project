@@ -3,6 +3,7 @@ package device;
 import java.net.InetAddress;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Device {
     InetAddress ip;
     String macAddress;
     String hostName;
-    List<Integer>ports;
+    HashMap<Integer, String>ports;
 
     /**
      * When a device is created, information on the device is stored.
@@ -30,7 +31,7 @@ public class Device {
          this.ip = ip;
          this.macAddress = macAddress;
          this.hostName = hostName;
-         ports = new ArrayList<>();
+         ports = new HashMap<Integer, String>();
     }
 
     /**
@@ -57,7 +58,7 @@ public class Device {
     /**
      * @return return the list of ports found open on the device
      */
-    public List<Integer> getPorts() {
+    public HashMap<Integer, String> getPorts() {
         return ports;
     }
 
@@ -67,7 +68,8 @@ public class Device {
      * @param port open port to add to ports List
      */
     public void setPort(int port){
-         ports.add(port);
+
+         ports.put(port,"" );
     }
     /**
      * @return  String representation of Device
