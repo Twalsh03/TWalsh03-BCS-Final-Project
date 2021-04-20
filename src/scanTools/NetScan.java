@@ -122,7 +122,6 @@ public class NetScan{
                     Device newDevice = deviceFactory.getInstance(currentIP, macString, hostname);
 
                     foundDevices.add(newDevice);
-                    System.out.println(newDevice);
                 }
             } catch (IOException|NullPointerException e) {
                 e.printStackTrace();

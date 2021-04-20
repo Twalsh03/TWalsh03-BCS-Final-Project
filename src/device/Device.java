@@ -67,9 +67,9 @@ public class Device {
      *
      * @param port open port to add to ports List
      */
-    public void setPort(int port){
+    public void setPort(int port, String service){
 
-         ports.put(port,"" );
+         ports.put(port, service );
     }
     /**
      * @return  String representation of Device
