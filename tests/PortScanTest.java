@@ -13,12 +13,12 @@ public class PortScanTest {
     PortScan portScan = new PortScan();
     Device TestDevice ;
     @Test
-    public void D_OpenPortScanQuickTest() {
+    public void D_OpenPortScanTCPQuickTest() {
         testIPScan = new NetScan();
         portScan = new PortScan();
         testIPScan.scan();
-        TestDevice = testIPScan.getFoundDevice(0);
-        portScan.scan(TestDevice, "quick");
+        TestDevice = testIPScan.getFoundDevice(1);
+        portScan.scanTCP(TestDevice, "quick");
         System.out.println(TestDevice);
         boolean expected = false;
         boolean actual = TestDevice.getPorts().isEmpty();
@@ -26,17 +26,30 @@ public class PortScanTest {
     }
 
     @Test
-    public void D_OpenPortScanFullTest() {
+    public void D_OpenPorTCPtScanFullTest() {
             testIPScan = new NetScan();
             portScan = new PortScan();
             testIPScan.scan();
             Device TestDevice = testIPScan.getFoundDevice(1);
-            portScan.scan(TestDevice, "full");
+            portScan.scanTCP(TestDevice, "full");
             System.out.println(TestDevice);
             boolean expected = false;
             boolean actual = TestDevice.getPorts().isEmpty();
             assertEquals(expected, actual);
         }
+
+    @Test
+    public void D_OpenPortUDPScanFullTest() {
+        testIPScan = new NetScan();
+        portScan = new PortScan();
+        testIPScan.scan();
+        Device TestDevice = testIPScan.getFoundDevice(1);
+        portScan.UDPscan(TestDevice, "quick");
+        System.out.println(TestDevice);
+        boolean expected = false;
+        boolean actual = TestDevice.getPorts().isEmpty();
+        assertEquals(expected, actual);
+    }
 }
 
 
