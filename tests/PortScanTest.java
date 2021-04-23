@@ -3,8 +3,6 @@ import org.testng.annotations.Test;
 import scanTools.NetScan;
 import scanTools.PortScan;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PortScanTest {

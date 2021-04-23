@@ -1,18 +1,20 @@
 package scanTools;
 
-import utils.*;
+import device.Device;
+import device.DeviceFactory;
+import utils.Gateway;
+import utils.MacAddress;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
-import java.net.*;
-import device.*;
 
 /***
  *The purpose of this method is to scan the local network for online/reachable devices.
  *It will then gather gather information from the device and create a device object, which is then
  *held in a List of found devices.
- *
  */
 public class NetScan{
 
