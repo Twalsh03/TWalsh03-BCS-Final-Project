@@ -11,7 +11,7 @@ public class PortScanTest {
     PortScan portScan = new PortScan();
     Device TestDevice ;
     @Test
-    public void D_OpenPortScanTCPQuickTest() {
+    public void  D_OpenPortScanTCPQuickTest() {
         testIPScan = new NetScan();
         portScan = new PortScan();
         testIPScan.scan();
@@ -28,7 +28,7 @@ public class PortScanTest {
             testIPScan = new NetScan();
             portScan = new PortScan();
             testIPScan.scan();
-            Device TestDevice = testIPScan.getFoundDevice(1);
+            Device TestDevice = testIPScan.getFoundDevice(0);
             portScan.scanTCP(TestDevice, "full");
             System.out.println(TestDevice);
             boolean expected = false;

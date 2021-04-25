@@ -76,12 +76,7 @@ public class Device {
      */
     @Override
     public String toString() {
-        return "device.Device{" +
-                "ip=" + ip +
-                ", macAddress='" + macAddress + '\'' +
-                ", hostName='" + hostName + '\'' +
-                ", ports=" + ports +
-                '}';
+        return  hostName;
     }
 }
 

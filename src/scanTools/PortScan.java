@@ -26,6 +26,7 @@ public class PortScan {
             try {
                 socket.connect(new InetSocketAddress(device.getIp(), port), 300);
                 socket.close();
+                device.setPort(port, "");
                 serviceAdd.addService(port, device, scanType);
 
 
