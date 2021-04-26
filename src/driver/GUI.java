@@ -35,7 +35,6 @@ public class GUI extends JFrame {
 
         NetScan netScan = new NetScan();
         PortScan portScan = new PortScan();
-        ImageIcon img = new ImageIcon("src/network.png");
 
         //get local and set localHost to get Address
         LocalHost localHost = new LocalHost();
@@ -45,21 +44,14 @@ public class GUI extends JFrame {
         Gateway gateway = new Gateway();
         gateway.setGateway();
 
-        //radio buttons
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(quickPortScanRadioButton);
-        buttonGroup.add(fullPortScanRadioButton);
-        quickPortScanRadioButton.isSelected();
-        quickPortScanRadioButton.setActionCommand("quick");
-        fullPortScanRadioButton.setActionCommand("full");
-       // String buttonSelection = buttonGroup.getSelection().getActionCommand();
-       // String radioSelection = buttonGroup1;
+
+
 
         //scan button
         scanButton.addActionListener(e -> {
             netScan.scan();
 
-            //fill the foundlist
+            //fill the foundList
             for(int i= 0;i<netScan.getFoundDevices().size();i++) {
                 foundDevices.add(netScan.getFoundDevice(i));
 
@@ -79,16 +71,34 @@ public class GUI extends JFrame {
 
         });
 
-        startTCPPortScanButton.addActionListener(e1 -> {
-            Device d = (Device) foundDevicesList.getSelectedValue();
-            if(d == null) {
-                JOptionPane.showMessageDialog(rootPanel, "Scan the network and select a device to port scan", "Oops!", JOptionPane.WARNING_MESSAGE);
-            }else{
-            portScan.scanTCP(d, "quick");
-            //   System.out.println("selected button : "+buttonSelection);
+        //TCP Scan will present error box if no device is selected
+        //otherwise check which RadioButton is selected and use that value in the ScanType
 
-            System.out.println(d.getPorts());
-        }});
+        startTCPPortScanButton.addActionListener(e ->{
+            Device d = (Device) foundDevicesList.getSelectedValue();
+            if (d == null) {
+                JOptionPane.showMessageDialog(rootPanel, "Scan the network and select a device to port scan", "Oops!", JOptionPane.WARNING_MESSAGE);
+            } else {
+                //radio buttons
+                String radioSelection = null;
+
+                boolean quickSelect = quickPortScanRadioButton.isSelected();
+                boolean fullSelect = fullPortScanRadioButton.isSelected();
+
+                if(quickSelect){
+                    radioSelection = "quick";
+                }
+
+                if(fullSelect){
+                    radioSelection = "full";
+                }
+                System.out.println("selected RadioButton : "+radioSelection);
+                portScan.scanTCP(d, radioSelection);
+
+
+                System.out.println(d.getPorts());
+             }
+        });
 
         //rootPanel
         setTitle("Network Scanner");
@@ -98,5 +108,6 @@ public class GUI extends JFrame {
 
 
     }
+
 
 }
