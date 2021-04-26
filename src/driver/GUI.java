@@ -6,16 +6,7 @@ import scanTools.PortScan;
 import utils.Gateway;
 import utils.LocalHost;
 
-import javax.sound.sampled.Port;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 
@@ -46,7 +37,6 @@ public class GUI extends JFrame {
         PortScan portScan = new PortScan();
         ImageIcon img = new ImageIcon("src/network.png");
 
-
         //get local and set localHost to get Address
         LocalHost localHost = new LocalHost();
         localHost.setLocalHost();
@@ -55,33 +45,50 @@ public class GUI extends JFrame {
         Gateway gateway = new Gateway();
         gateway.setGateway();
 
+        //radio buttons
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(quickPortScanRadioButton);
+        buttonGroup.add(fullPortScanRadioButton);
+        quickPortScanRadioButton.isSelected();
+        quickPortScanRadioButton.setActionCommand("quick");
+        fullPortScanRadioButton.setActionCommand("full");
+       // String buttonSelection = buttonGroup.getSelection().getActionCommand();
+       // String radioSelection = buttonGroup1;
+
         //scan button
         scanButton.addActionListener(e -> {
-            //set to false to activate once
-            scanButton.setVisible(false);
-
             netScan.scan();
 
             //fill the foundlist
             for(int i= 0;i<netScan.getFoundDevices().size();i++) {
-                 foundDevices.add(netScan.getFoundDevice(i));
+                foundDevices.add(netScan.getFoundDevice(i));
 
                 model.addElement(foundDevices.get(i));
+
             }
         });
+
+
+
 
         //listModel
         foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
             Device d = (Device) foundDevicesList.getSelectedValue();
             DeviceIPLabel.setText(d.getIp().toString());
             MACLabel.setText(d.getMacAddress());
-            startTCPPortScanButton.addActionListener(e1 -> {
-                portScan.scanTCP(d, "quick");
-                System.out.println(d.getPorts());
-            });
-
 
         });
+
+        startTCPPortScanButton.addActionListener(e1 -> {
+            Device d = (Device) foundDevicesList.getSelectedValue();
+            if(d == null) {
+                JOptionPane.showMessageDialog(rootPanel, "Scan the network and select a device to port scan", "Oops!", JOptionPane.WARNING_MESSAGE);
+            }else{
+            portScan.scanTCP(d, "quick");
+            //   System.out.println("selected button : "+buttonSelection);
+
+            System.out.println(d.getPorts());
+        }});
 
         //rootPanel
         setTitle("Network Scanner");
