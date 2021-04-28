@@ -8,8 +8,6 @@ import utils.LocalHost;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 
 public class GUI extends JFrame {
@@ -74,7 +72,7 @@ public class GUI extends JFrame {
         foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
             Device d = (Device) foundDevicesList.getSelectedValue();
 
-            DeviceIPLabel.setText(d.getIp().toString());
+            DeviceIPLabel.setText(d.getIPString());
             MACLabel.setText(d.getMacAddress());
 
 
@@ -110,11 +108,14 @@ public class GUI extends JFrame {
 
                 if(quickSelect){
                     radioSelection = "quick";
+                }else if(fullSelect){
+                    radioSelection = "full";
+                }else{
+                    JOptionPane.showMessageDialog(rootPanel, "Select a device to port scan", "Oops!", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
 
-                if(fullSelect){
-                    radioSelection = "full";
-                }
+
                 System.out.println("selected RadioButton : "+radioSelection);
                 portScan.scanTCP(d, radioSelection);
 

@@ -1,10 +1,7 @@
 package device;
 
 import java.net.InetAddress;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *  When device is found on the network, its information is stored within an object of this
@@ -39,6 +36,14 @@ public class Device {
      */
     public InetAddress getIp() {
         return ip;
+    }
+
+    public String getIPString(){
+        String ipString = ip.toString();
+        int charIndex = ipString.indexOf("/");
+        ipString = ipString.substring(charIndex);
+
+        return ipString;
     }
 
     /**
