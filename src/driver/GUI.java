@@ -8,6 +8,8 @@ import utils.LocalHost;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 
 public class GUI extends JFrame {
@@ -27,11 +29,17 @@ public class GUI extends JFrame {
     private JLabel MACLabel;
     private JLabel DeviceIPLabel;
     private JButton startTCPPortScanButton;
+    private JList portList;
+    static DefaultListModel portModel;
 
     public GUI() {
         DefaultListModel<Device> model = new DefaultListModel<>();
         ArrayList<Device> foundDevices = new ArrayList<>();
         foundDevicesList.setModel(model);
+
+        portModel = new DefaultListModel();
+
+
 
         NetScan netScan = new NetScan();
         PortScan portScan = new PortScan();
@@ -62,15 +70,30 @@ public class GUI extends JFrame {
 
 
 
-
         //listModel
         foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
             Device d = (Device) foundDevicesList.getSelectedValue();
+
             DeviceIPLabel.setText(d.getIp().toString());
             MACLabel.setText(d.getMacAddress());
 
+
         });
 
+        foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
+            Device d = (Device) foundDevicesList.getSelectedValue();
+            Object[] objectArray = null;
+            if(d.getPorts()!= null) {
+                objectArray = d.getPorts().entrySet().toArray();
+                portModel.clear();
+                for (int i = 0; i < d.getPorts().size(); i++) {
+                    portModel.addElement(objectArray[i]);
+                    portList.setModel(portModel);
+                    System.out.println("portModel:" + portModel);
+                }
+            }
+
+        });
         //TCP Scan will present error box if no device is selected
         //otherwise check which RadioButton is selected and use that value in the ScanType
 
@@ -110,4 +133,6 @@ public class GUI extends JFrame {
     }
 
 
-}
+    }
+
+
