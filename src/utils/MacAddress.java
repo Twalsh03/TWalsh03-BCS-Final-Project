@@ -27,7 +27,7 @@ public class MacAddress {
         String ip = address.getHostAddress();
         //If HOST is Windows OS
         if (win) {
-            return run_program_with_catching_output("arp -a " + ip);
+            return getMacAddress("arp -a " + ip);
         }
         //If HOST is MacOS based
         if (osx) {
@@ -70,7 +70,7 @@ public class MacAddress {
      * @return mac - MAC ID of IP address's NIC
      */
 
-    public static String run_program_with_catching_output(String param) {
+    public static String getMacAddress(String param) {
         Process p = null;
         try {
             p = Runtime.getRuntime().exec(param);

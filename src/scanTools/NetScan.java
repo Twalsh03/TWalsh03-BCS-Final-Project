@@ -19,7 +19,7 @@ import java.util.List;
 public class NetScan{
 
     private static final Gateway GATEWAY = new Gateway();
-    private  static ArrayList<Device> foundDevices = new ArrayList<>();
+    private  static final ArrayList<Device> foundDevices = new ArrayList<>();
 
     /***
      *When creating a NetScan object, set the gateway of the network.
