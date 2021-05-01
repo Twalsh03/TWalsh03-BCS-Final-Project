@@ -42,7 +42,7 @@ public class PortScanTest {
         portScan = new PortScan();
         testIPScan.scan();
         Device TestDevice = testIPScan.getFoundDevice(1);
-        portScan.UDPscan(TestDevice, "quick");
+        portScan.scanUDP(TestDevice, "quick");
         System.out.println(TestDevice);
         boolean expected = false;
         boolean actual = TestDevice.getPorts().isEmpty();

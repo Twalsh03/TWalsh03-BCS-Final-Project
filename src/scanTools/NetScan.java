@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class NetScan{
 
-    private static final Gateway gateway = new Gateway();
+    private static final Gateway GATEWAY = new Gateway();
     private  static ArrayList<Device> foundDevices = new ArrayList<>();
 
     /***
@@ -27,7 +27,7 @@ public class NetScan{
      *
      */
     public NetScan(){
-        gateway.setGateway();
+        GATEWAY.setGateway();
 
     }
 
@@ -46,7 +46,7 @@ public class NetScan{
 
 
         //get subnet to start scan on
-        subnet = gateway.getSubnet();
+        subnet = GATEWAY.getSubnet();
 
         //device factory
         DeviceFactory deviceFactory = new DeviceFactory();
@@ -96,7 +96,7 @@ public class NetScan{
 
 
         //get subnet to start scan on
-        subnet = gateway.getSubnet();
+        subnet = GATEWAY.getSubnet();
 
         //device factory
         DeviceFactory deviceFactory = new DeviceFactory();
