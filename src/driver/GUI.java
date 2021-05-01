@@ -59,6 +59,7 @@ public class GUI extends JFrame {
 
             //fill the foundList
             for(int i= 0;i<netScan.getFoundDevices().size();i++) {
+
                 foundDevices.add(netScan.getFoundDevice(i));
 
                 model.addElement(foundDevices.get(i));
@@ -74,27 +75,13 @@ public class GUI extends JFrame {
 
             DeviceIPLabel.setText(d.getIPString());
             MACLabel.setText(d.getMacAddress());
-
-
-        });
-
-        foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
-            Device d = (Device) foundDevicesList.getSelectedValue();
-            Object[] objectArray = null;
-            if(d.getPorts()!= null) {
-                objectArray = d.getPorts().entrySet().toArray();
-                portModel.clear();
-                for (int i = 0; i < d.getPorts().size(); i++) {
-                    portModel.addElement(objectArray[i]);
-                    portList.setModel(portModel);
-                    System.out.println("portModel:" + portModel);
-                }
-            }
+            setJlist();
 
         });
+
+
         //TCP Scan will present error box if no device is selected
         //otherwise check which RadioButton is selected and use that value in the ScanType
-
         startTCPPortScanButton.addActionListener(e ->{
             Device d = (Device) foundDevicesList.getSelectedValue();
             if (d == null) {
@@ -131,6 +118,23 @@ public class GUI extends JFrame {
         GatewayAddressText.setText(gateway.getGateway());
 
 
+    }
+
+    private void setJlist (){
+        foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
+            Device d = (Device) foundDevicesList.getSelectedValue();
+            Object[] objectArray = null;
+            if(d.getPorts()!= null) {
+                objectArray = d.getPorts().entrySet().toArray();
+                portModel.clear();
+                for (int i = 0; i < d.getPorts().size(); i++) {
+                    portModel.addElement(objectArray[i]);
+                    portList.setModel(portModel);
+                    System.out.println("portModel:" + portModel);
+                }
+            }
+
+        });
     }
 
 

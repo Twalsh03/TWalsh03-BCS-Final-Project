@@ -12,10 +12,10 @@ import java.util.HashMap;
  *  ports - List of found open ports
  */
 public class Device {
-    InetAddress ip;
-    String macAddress;
-    String hostName;
-    HashMap<Integer, String>ports;
+    private InetAddress ip;
+    private  String macAddress;
+    private String hostName;
+    private HashMap<Integer, String>ports;
 
     /**
      * When a device is created, information on the device is stored.

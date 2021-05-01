@@ -62,7 +62,7 @@ public class NetScan{
             }
 
             try {
-                if(currentIP.isReachable(70)){
+                if(currentIP.isReachable(110)){
 
                     //convert Inet Address to String to manipulate
                     String hostname = currentIP.getHostName();
