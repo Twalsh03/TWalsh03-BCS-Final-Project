@@ -117,7 +117,7 @@ public class NetScan{
                     //convert Inet Address to String to manipulate
                     String hostname = currentIP.getHostName();
 
-                    //use utils.MacAddress to get the MAC address of machine.
+
                     //functional on Win 10
                     String macString = MacAddress.getMacAddrHost(currentIP.getHostAddress());
 

@@ -6,10 +6,6 @@ import java.util.HashMap;
 /**
  *  When device is found on the network, its information is stored within an object of this
  *  class object.
-
- *  macAddress -
- *  hostName -
- *  ports - List of found open ports
  */
 public class Device {
     private final InetAddress ip;
