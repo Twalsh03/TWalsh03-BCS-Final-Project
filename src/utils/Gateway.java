@@ -48,6 +48,7 @@ public class Gateway extends LocalHost {
      */
     public String getSubnet() {
     int subIndex = gateway.lastIndexOf(".");
-        return gateway.substring(0,subIndex)+".";
+        final String s = gateway.substring(0, subIndex) + ".";
+        return s;
     }
 }
