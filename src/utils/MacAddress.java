@@ -14,7 +14,10 @@ public class MacAddress {
 
     /***
      * Depending on HOST OS, get MAC Address via cached ARP TABLE.
-     *
+     * WINDOWS:
+     * for Windows OS the system command 'arp -a [IP]' is sent and then the data is extracted from the output.
+     * MacOS:
+     * For MacOS, the system command 'arp -n [IP]' is sent and then the data is extracted from the output.
      *
      * @param host - IP of HOST Device - used to running local system commands from
      * @return MAC address of remote device (if found).
