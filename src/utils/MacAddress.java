@@ -31,8 +31,7 @@ public class MacAddress {
         }
         //If HOST is MacOS based
         if (osx) {
-         //   More research is needed in order to send a BASH command on MacOS
-            return  "Not compatible";
+            return getMacAddress("arp -n " + ip);
             }
         return null;
 
@@ -61,9 +60,15 @@ public class MacAddress {
 
     /***
      * If the host machine running this java program is windows based,
-     * the 'arp -a' command will be run using the runtime.exec() method.
+     * the 'arp -a [IP] ' command will be run using the runtime.exec() method.
      *
-     * This will call the extractMacAddr() method to get just the MAC
+     * This will call the extractMacAddrWindows() method to get just the MAC
+     * address of the IP called.
+     *
+     *
+     *If the host device is MacOS based, system command "arp -n [IP]" will be sent to the host device.
+     *
+     * This will call the extractMacAddrMacOS() method to get just the MAC
      * address of the IP called.
      *
      * @param param  - Command to run on Windows CMD
@@ -86,10 +91,16 @@ public class MacAddress {
                 e.printStackTrace();
             }
             if (!line.trim().equals("")) {
-                // keep only the process name
-                String mac = extractMacAddr(line.substring(1));
-                if (!mac.isEmpty()) {
-                    return mac;
+
+                if(isWindows()) {
+                    String mac = extractMacAddrWindows(line.substring(1));
+                    if (!mac.isEmpty()) {
+                        return mac;
+                    }
+                }
+                if(isOSX()){
+                    return extractMacAddrMacOS(line);
+
                 }
             }
 
@@ -104,16 +115,42 @@ public class MacAddress {
      *
      * It is then moved to upper case for clarity and returned.
      *
+     * This is for Windows OS
+     *
      * @param str - Each line of the 'apr -a' output
      * @return - MAC address in uppercase
      */
-    public static String extractMacAddr(String str) {
+    public static String extractMacAddrWindows(String str) {
         String[] arr = str.split("   ");
         for (String string : arr) {
             if (string.trim().length() == 17) {
+
                 return string.trim().toUpperCase();
             }
         }
         return "";
     }
+
+    /***
+     * The String passed in the method is 'split' using regular expression and
+     * moved into an array of Strings and the MAC address is extracted using string manipulation.
+     *
+     * It is then moved to upper case for clarity and returned.
+     *
+     * This is for MacOS
+     *
+     * @param str - Each line of the 'apr -n [IP]' output
+     * @return - MAC address in uppercase
+     */
+    public static String extractMacAddrMacOS(String str) {
+        String[] arr = str.split("at");
+        for (String string : arr) {
+            if(string.contains("on")) {
+                string = string.substring(0, string.indexOf("on"));
+                return string.trim().toUpperCase();
+            }
+        }
+        return "";
+        }
+
 }
