@@ -10,41 +10,43 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+
 /***
  *The purpose of this method is to scan the local network for online/reachable devices.
  *It will then gather gather information from the device and create a device object, which is then
  *held in a List of found devices.
  */
-public class NetScan{
+public class NetScan {
     private static final Gateway GATEWAY = new Gateway();
-    private  static final ArrayList<Device> foundDevices = new ArrayList<>();
+    private static final ArrayList<Device> foundDevices = new ArrayList<>();
 
     /***
      *When creating a NetScan object, set the gateway of the network.
      * This is used to start the scan.
      *
      */
-    public NetScan(){
+    public NetScan() {
         GATEWAY.setGateway();
 
     }
+
     /**
      * This method will scan the local network for reachable devices.
      * In order to crete the device objects of found devices during runtime, a DeviceFactory
      * is used. When a device is reachable, get the MAC Address of the device(using HOST's cached Arp Table),
      * the device name and store this with in a device object which is then held in a List of found devices.
-     *
-     *
+     * <p>
+     * <p>
      * SCAN_LIMIT - set to 255 as no device can have a higher IP.
      */
     public void scan() {
         final String subnet;
-        final int SCAN_LIMIT  = 255;
+        final int SCAN_LIMIT = 255;
         //get subnet to start scan on
         subnet = GATEWAY.getSubnet();
 
         DeviceFactory deviceFactory = new DeviceFactory();
-        for(int i = 1; i<SCAN_LIMIT; i++){
+        for (int i = 1; i < SCAN_LIMIT; i++) {
 
             InetAddress currentIP = null;
             try {
@@ -53,7 +55,7 @@ public class NetScan{
                 e.printStackTrace();
             }
             try {
-                if(currentIP.isReachable(100)){
+                if (currentIP.isReachable(100)) {
                     //convert Inet Address to String to manipulate
                     String hostname = currentIP.getHostName();
                     //use utils.MacAddress to get the MAC address of machine.
@@ -61,8 +63,8 @@ public class NetScan{
                     Device newDevice = deviceFactory.getInstance(currentIP, macString, hostname);
                     foundDevices.add(newDevice);
                     System.out.println(newDevice);
-               }
-            } catch (IOException|NullPointerException e) {
+                }
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }
@@ -82,7 +84,7 @@ public class NetScan{
         //get subnet to start scan on
         subnet = GATEWAY.getSubnet();
         DeviceFactory deviceFactory = new DeviceFactory();
-        for(int i = 1; i<limit; i++){
+        for (int i = 1; i < limit; i++) {
             InetAddress currentIP = null;
             try {
                 currentIP = InetAddress.getByName(subnet + i);
@@ -90,24 +92,25 @@ public class NetScan{
                 e.printStackTrace();
             }
             try {
-                if(currentIP.isReachable(100)){
+                if (currentIP.isReachable(100)) {
                     //convert Inet Address to String to manipulate
                     String hostname = currentIP.getHostName();
                     String macString = MacAddress.getMacAddrHost(currentIP.getHostAddress());
                     Device newDevice = deviceFactory.getInstance(currentIP, macString, hostname);
                     foundDevices.add(newDevice);
                 }
-            } catch (IOException|NullPointerException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }
     }
+
     /***
      *List of Device objects that are found on the network.
      *
      * @return - List of found device objects
      */
-    public List<Device> getFoundDevices(){
+    public List<Device> getFoundDevices() {
         return foundDevices;
     }
 
@@ -117,7 +120,7 @@ public class NetScan{
      * @param i - index of device to return
      * @return Device within foundDevice List with given index.
      */
-    public Device getFoundDevice(int i){
+    public Device getFoundDevice(int i) {
         return foundDevices.get(i);
     }
 }
