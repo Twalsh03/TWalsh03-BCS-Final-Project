@@ -10,14 +10,12 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-
 /***
  *The purpose of this method is to scan the local network for online/reachable devices.
  *It will then gather gather information from the device and create a device object, which is then
  *held in a List of found devices.
  */
 public class NetScan{
-
     private static final Gateway GATEWAY = new Gateway();
     private  static final ArrayList<Device> foundDevices = new ArrayList<>();
 
@@ -30,7 +28,6 @@ public class NetScan{
         GATEWAY.setGateway();
 
     }
-
     /**
      * This method will scan the local network for reachable devices.
      * In order to crete the device objects of found devices during runtime, a DeviceFactory
@@ -43,15 +40,10 @@ public class NetScan{
     public void scan() {
         final String subnet;
         final int SCAN_LIMIT  = 255;
-
-
         //get subnet to start scan on
         subnet = GATEWAY.getSubnet();
 
-        //device factory
         DeviceFactory deviceFactory = new DeviceFactory();
-
-
         for(int i = 1; i<SCAN_LIMIT; i++){
 
             InetAddress currentIP = null;
@@ -60,19 +52,13 @@ public class NetScan{
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
-
             try {
-                if(currentIP.isReachable(110)){
-
+                if(currentIP.isReachable(100)){
                     //convert Inet Address to String to manipulate
                     String hostname = currentIP.getHostName();
-
                     //use utils.MacAddress to get the MAC address of machine.
-                    //functional on Win 10
                     String macString = MacAddress.getMacAddrHost(currentIP.getHostAddress());
-
                     Device newDevice = deviceFactory.getInstance(currentIP, macString, hostname);
-
                     foundDevices.add(newDevice);
                     System.out.println(newDevice);
                }
@@ -80,7 +66,6 @@ public class NetScan{
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
@@ -94,44 +79,29 @@ public class NetScan{
     public void scan(int limit) {
         final String subnet;
 
-
         //get subnet to start scan on
         subnet = GATEWAY.getSubnet();
-
-        //device factory
         DeviceFactory deviceFactory = new DeviceFactory();
-
-
         for(int i = 1; i<limit; i++){
-
             InetAddress currentIP = null;
             try {
                 currentIP = InetAddress.getByName(subnet + i);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
-
             try {
                 if(currentIP.isReachable(100)){
-
                     //convert Inet Address to String to manipulate
                     String hostname = currentIP.getHostName();
-
-
-                    //functional on Win 10
                     String macString = MacAddress.getMacAddrHost(currentIP.getHostAddress());
-
                     Device newDevice = deviceFactory.getInstance(currentIP, macString, hostname);
-
                     foundDevices.add(newDevice);
                 }
             } catch (IOException|NullPointerException e) {
                 e.printStackTrace();
             }
         }
-
     }
-
     /***
      *List of Device objects that are found on the network.
      *
@@ -150,6 +120,4 @@ public class NetScan{
     public Device getFoundDevice(int i){
         return foundDevices.get(i);
     }
-
-
 }
