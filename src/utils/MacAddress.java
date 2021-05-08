@@ -37,7 +37,6 @@ public class MacAddress {
             return getMacAddress("arp -n " + ip);
             }
         return null;
-
     }
 
     /***
