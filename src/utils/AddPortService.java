@@ -12,7 +12,7 @@ import java.io.IOException;
 public class AddPortService {
     /**
      * This method is used to attach the service of a port that is found to be open.
-     * the services that is running on the ports are those that are registered via
+     * The services that run on the ports are those that are registered via
      * the IANA (Internet Assigned Numbers Authority)
      *
      * Full list can be found on the following link:
