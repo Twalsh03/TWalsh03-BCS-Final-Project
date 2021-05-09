@@ -120,6 +120,12 @@ public class GUI extends JFrame {
 
     }
 
+    /**
+     * Used to set the model of the JList to display device open ports.
+     *
+     * when a device is selected, clears the portList model and re-adds the data
+     *
+     */
     private void setJlist (){
         foundDevicesList.getSelectionModel().addListSelectionListener(e -> {
             Device d = (Device) foundDevicesList.getSelectedValue();
