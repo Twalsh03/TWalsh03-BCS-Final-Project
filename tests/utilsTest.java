@@ -1,20 +1,14 @@
-import device.Device;
+
 import org.testng.annotations.Test;
-import scanTools.NetScan;
 import utils.Gateway;
 import utils.LocalHost;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-//TEST NETWORK IP HARD CODED FOR TESTING
 public class utilsTest {
 
     LocalHost testLocalHost = new LocalHost();
-    NetScan testScan;
 
     @Test
     public void A_setLocalHost() {
