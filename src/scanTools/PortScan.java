@@ -56,13 +56,14 @@ public class PortScan {
                 e.printStackTrace();
             }
         }
+
         System.out.println(device);
     }
 
     /**
      * The UDP port scn will use Datagram Packets to check for open ports.
      * This can prove inconsistent due to Datagram packets being connectionless.
-     * <p>
+     *
      * Other than the connection type, this method works much like TCP scans, however
      * This method may not be used due to issues with discovering open UDP ports.
      *

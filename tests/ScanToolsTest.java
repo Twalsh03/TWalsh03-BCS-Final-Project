@@ -10,7 +10,7 @@ public class ScanToolsTest {
     NetScan testScan = new NetScan();
 
     @Test
-    public void C_networkScanTest() {
+    public void A_networkScanTest() {
         //Scan network
         testScan = new NetScan();
         testScan.scan();
